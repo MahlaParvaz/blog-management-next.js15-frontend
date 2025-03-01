@@ -1,0 +1,169 @@
+@import 'tailwindcss' important;
+@import 'tailwindcss' prefix;
+@import '../constants/localFont.css';
+
+@theme {
+  --font-*: initial;
+  --font-display: 'Vazir', 'sans-serif';
+
+  --color-*: initial;
+  --background: #d9d9d9;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-gray-700: #404040;
+  --color-gray-600: #606060;
+  --color-gray-500: #868686;
+  --color-gray-400: #adadad;
+  --color-gray-300: #cbcbcb;
+  --color-gray-200: #d9d9d9;
+  --color-gray-100: #ededed;
+  --color-gray-50: #f9f9f9;
+
+  --color-primary-950: oklch(0.283 0.141 291.089);
+  --color-primary-900: oklch(0.38 0.189 293.745);
+  --color-primary-800: oklch(0.432 0.232 292.759);
+  --color-primary-700: oklch(0.491 0.27 292.581);
+  --color-primary-600: oklch(0.541 0.281 293.009);
+  --color-primary-500: oklch(0.606 0.25 292.717);
+  --color-primary-400: oklch(0.702 0.183 293.541);
+  --color-primary-300: oklch(0.811 0.111 293.571);
+  --color-primary-200: oklch(0.894 0.057 293.283);
+  --color-primary-100: oklch(0.943 0.029 294.588);
+  --color-primary-50: oklch(0.969 0.016 293.756);
+
+  --color-secondary-950: #032340;
+  --color-secondary-900: #01070d;
+  --color-secondary-850: #010a13;
+  --color-secondary-700: #021526;
+  --color-secondary-400: #194165;
+  --color-secondary-300: #2f5f8a;
+  --color-secondary-150: #518cc1;
+  --color-secondary-50: #67aae6;
+  --color-secondary-10: #cfe8ff;
+  --color-secondary-0: #ebf5ff;
+
+  --color-success-10: #d3eddd;
+  --color-success-20: #66bb6a;
+  --color-success-30: #257028;
+
+  --color-warning-10: #fff3bf;
+  --color-warning-20: #ffb300;
+  --color-warning-30: #995700;
+
+  --color-error-10: #faddca;
+  --color-error-20: #e53935;
+  --color-error-30: #8a1513;
+
+  --color-info-10: 199, 242, 252;
+  --color-info-20: 41, 182, 246;
+  --color-info-30: 15, 88, 148;
+
+  --color-history-green: 239, 247, 246;
+  --color-history-red: 255, 235, 233;
+  --color-history-yellow: 255, 253, 230;
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-display);
+  min-height: 100vh;
+  user-select: none;
+  background-color: var(--color-white);
+}
+html {
+  font-family: var(--font-display);
+}
+
+@layer components {
+  .btn {
+    @apply px-3 py-3 rounded-xl transition-all duration-300;
+  }
+  .btn--primary {
+    @apply bg-primary-900 hover:bg-primary-600 text-white;
+  }
+}
+*::-webkit-scrollbar {
+  width: 0.375rem;
+  height: 0.375rem;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary-950);
+  background-clip: padding-box;
+  border-radius: 0.25rem;
+}
+
+@-moz-document url-prefix() {
+  body,
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary-950) #f5f5f5;
+  }
+}
+
+@utility container {
+  padding-inline: 10px;
+  margin-inline: auto;
+}
+
+@layer components {
+  .form {
+    @apply flex flex-col gap-y-8 bg-secondary-0 p-4 rounded-xl w-full max-w-lg;
+  }
+  .textField__input {
+    @apply w-full py-3 px-4 rounded-xl text-secondary-900;
+  }
+
+  .spinner {
+    margin: 3.2rem auto 1.6rem;
+    width: 60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid rgb(var(--color-primary-900));
+    border-right-color: rgb(var(--color-primary-200));
+    animation: rotate 1s infinite linear;
+  }
+
+  .spinner-mini {
+    margin: 0;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid rgb(var(--color-primary-200));
+    border-right-color: transparent;
+    animation: rotate 1s infinite linear;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+}
+button:disabled {
+  cursor: not-allowed;
+  background-color: rgb(var(--color-secondary-300), 0.5);
+  color: rgb(var(--color-secondary-700), 0.5);
+  pointer-events: none;
+  box-shadow: none;
+}
