@@ -1,8 +1,9 @@
 import React from 'react';
+import PostList from './PostList';
 
 function BlogList() {
   return <div>
-    dddd
+    <PostList/>
   </div>;
 }
 
