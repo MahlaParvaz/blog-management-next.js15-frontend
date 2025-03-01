@@ -4,6 +4,7 @@ import React from 'react';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import Author from '@/components/blog/Author';
 import { IPost } from '@/types/blogListTypes';
+import BlogInteraction from '@/components/blog/BlogInteraction';
 
 async function PostList() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/list`);
@@ -36,6 +37,7 @@ async function PostList() {
                 <span>دقیقه</span>
               </div>
             </div>
+            <BlogInteraction {...post} />
           </div>
         </div>
       ))}
