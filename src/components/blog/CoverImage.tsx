@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-function CoverImage({ title, coverImageUrl, slug }:IPost) {
+function CoverImage({ title, coverImageUrl, slug }: IPost) {
   return (
     <div className="relative aspect-video overflow-hidden mb-6">
       <Link href={`/blog/${slug}`}>
@@ -20,6 +20,3 @@ function CoverImage({ title, coverImageUrl, slug }:IPost) {
 }
 
 export default CoverImage;
-
-
-

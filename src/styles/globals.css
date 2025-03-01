@@ -6,7 +6,8 @@
   --font-*: initial;
   --font-display: 'Vazir', 'sans-serif';
 
-  --color-*: initial;
+  /* --color-*: initial; */
+  --background-app-rgb: #f9fafb;
   --background: #d9d9d9;
   --color-white: #ffffff;
   --color-black: #000000;
@@ -63,7 +64,29 @@
   --color-history-red: 255, 235, 233;
   --color-history-yellow: 255, 253, 230;
 }
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+@variations {
+  --background-app-rgb: #141414;
+  --color-secondary-900: #f9fafb;
+  --color-secondary-800: #f3f4f6;
+  --color-secondary-700: #e5e7eb;
+  --color-secondary-600: #d1d5db;
+  --color-secondary-500: #9ca3af;
+  --color-secondary-400: #6b7280;
+  --color-secondary-300: #4b5563;
+  --color-secondary-200: #374151;
+  --color-secondary-100: #1f2937;
+  --color-secondary-50: #111827;
+  --color-secondary-0: #18213f;
+  --backdrop-color: #000000;
+}
+
+
+@utility container {
+  padding-inline: 10px;
+  margin-inline: auto;
+}
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -79,7 +102,7 @@ body {
   font-family: var(--font-display);
   min-height: 100vh;
   user-select: none;
-  background-color: var(--color-white);
+  background-color: rgb(var(--background-app-rgb));
 }
 html {
   font-family: var(--font-display);

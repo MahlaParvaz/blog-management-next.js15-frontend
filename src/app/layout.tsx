@@ -14,18 +14,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" data-theme="dark">
       <body className={'min-h-screen font-display'}>
         <Header />
         {/* <div className="container xl:max-w-screen-xl">{children}</div> */}
 
-        <div>
+        <div className="container xl:max-w-screen-xl ">
           <h1>لیست بلاگ ها</h1>
-          <div className="grid grid-cols-12 gap-8">
-            <div className="col-span-12 lg:col-span-4 xl:col-span-3 text-secondary-850 space-y-4 ">
+          <div className="container grid grid-cols-12 gap-8">
+            <div className="col-span-12 lg:col-span-4 xl:col-span-2 text-secondary-850 space-y-4 ">
               <CategoryList />
             </div>
-            <div className="col-span-12 lg:col-span-4 xl:col-span-9">
+            <div className=" col-span-12 lg:col-span-4 xl:col-span-10">
               {children}
             </div>
           </div>
