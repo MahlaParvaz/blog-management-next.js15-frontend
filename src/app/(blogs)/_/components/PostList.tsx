@@ -11,7 +11,6 @@ async function PostList() {
   const {
     data: { posts },
   } = await res.json();
-  console.log(posts);
 
   return posts.length > 0 ? (
     <div className="grid grid-cols-12 gap-8">

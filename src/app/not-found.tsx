@@ -10,18 +10,18 @@ function NotFound() {
 
   return (
     <div className="h-screen flex items-center justify-center">
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-96 bottom-40">
         <Image
-          src={'/images/404.jpg'}
+          src={'/images/404.png'}
           alt={'notfound'}
           fill
-          quality={75}
-          className="object-contain w-full h-full"
+          quality={80}
+          className="object-contain object-center "
         />
         <Button
           onClick={onBack}
           variant={'primary'}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 py-3 px-4 btn btn--primary rounded-xl w-3xs"
+          className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 py-3 px-4 btn btn--primary rounded-xl w-3xs"
         >
           {homeStr.notFound}
         </Button>
