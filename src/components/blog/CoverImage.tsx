@@ -5,7 +5,7 @@ import React from 'react';
 
 function CoverImage({ title, coverImageUrl, slug }: IPost) {
   return (
-    <div className="relative aspect-video overflow-hidden mb-6">
+    <div className="relative aspect-w-16 aspect-h-9 overflow-hidden rounded-lg mb-6">
       <Link href={`/blog/${slug}`}>
         <Image
           alt={title}
