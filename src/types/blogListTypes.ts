@@ -43,7 +43,7 @@ export interface IPost {
 }
 
 export interface IAvatarProps {
-    src?: string;
-    width?: number;
-    height?: number;
-  }
+  src?: string;
+  width?: number;
+  height?: number;
+}

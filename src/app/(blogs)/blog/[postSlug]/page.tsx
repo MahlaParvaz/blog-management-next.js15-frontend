@@ -1,19 +1,16 @@
+import { getPostBySlug } from '@/services/api/postService';
 import Image from 'next/image';
 import React from 'react';
 
-interface IBlogDetailProps {
-  params: {
-    postSlug: string;
-  };
-}
-async function BlogDetail({ params }: IBlogDetailProps) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/slug/${params.postSlug}`,
-    { cache: 'no-store' }
-  );
-  const {
-    data: { post },
-  } = await res.json();
+async function BlogDetail({ params }: { params: { postSlug: string } }) {
+  // const res = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_URL}/post/slug/${params.postSlug}`,
+  //   { cache: 'no-store' }
+  // );
+  // const {
+  //   data: { post },
+  // } = await res.json();
+  const post = await getPostBySlug(params.postSlug);
 
   return (
     <div className="text-secondary-600 max-w-screen-md mx-auto">

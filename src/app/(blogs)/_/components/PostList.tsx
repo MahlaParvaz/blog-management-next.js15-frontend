@@ -5,13 +5,15 @@ import { ClockIcon } from '@heroicons/react/24/outline';
 import Author from '@/components/blog/Author';
 import { IPost } from '@/types/blogListTypes';
 import BlogInteraction from '@/components/blog/BlogInteraction';
+import { getPosts } from '@/services/api/postService';
 
 async function PostList() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/list`);
-  const {
-    data: { posts },
-  } = await res.json();
+  // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/list`);
+  // const {
+  //   data: { posts },
+  // } = await res.json();
 
+  const posts = await getPosts();
   return posts.length > 0 ? (
     <div className="grid grid-cols-12 gap-8">
       {posts.map((post: IPost) => (
