@@ -1,19 +1,15 @@
 'use client';
-import { ThreeDots } from 'react-loader-spinner';
+import BeatLoader from 'react-spinners/BeatLoader';
 
-function Loading({ width = '75', height = '40' }) {
+function Loading({ width = '24' }) {
   return (
-    <ThreeDots
-      height={height}
-      width={width}
-      radius="9"
+    <BeatLoader
+      size={width}
       color="#4a6dff"
-      ariaLabel="three-dots-loading"
-      wrapperStyle={{
+      cssOverride={{
         display: 'flex',
         justifyContent: 'center',
       }}
-      visible={false}
     />
   );
 }
