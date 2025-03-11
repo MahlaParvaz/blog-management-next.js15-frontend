@@ -1,17 +1,18 @@
-"use client";
-import Button from "@/components/ui/Button";
-import Loading from "@/components/ui/Loading";
-import RHFTextField from "@/components/ui/RHFTextField";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-// import { useAuth } from "@/context/AuthContext";
-import Link from "next/link";
+'use client';
+import Button from '@/components/ui/Button';
+import Loading from '@/components/ui/Loading';
+import RHFTextField from '@/components/ui/RHFTextField';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
+import { ISignInValues } from '@/types/authTypes';
 
 const schema = yup
   .object({
-    email: yup.string().email().required("ایمیل را وارد کنید"),
-    password: yup.string().required("رمز عبور را وارد کنید"),
+    email: yup.string().email().required('ایمیل را وارد کنید'),
+    password: yup.string().required('رمز عبور را وارد کنید'),
   })
   .required();
 
@@ -20,10 +21,10 @@ function Signin() {
     register,
     handleSubmit,
     formState: { errors, isLoading },
-  } = useForm({ resolver: yupResolver(schema), mode: "onTouched" });
-  // const { signin } = useAuth();
-  const onSubmit = async (values) => {
-    // await signin(values);
+  } = useForm({ resolver: yupResolver(schema), mode: 'onTouched' });
+  const { signin } = useAuth();
+  const onSubmit = async (values: ISignInValues) => {
+    await signin(values);
   };
 
   return (

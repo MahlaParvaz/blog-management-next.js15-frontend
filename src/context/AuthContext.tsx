@@ -1,20 +1,39 @@
 'use client';
 
-import { getUserApi, signinApi, signupApi } from '@/services/api/authServise';
-import { useRouter } from 'next/navigation';
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import {
+  getUserApi,
+  logoutApi,
+  signinApi,
+  signupApi,
+} from '@/services/api/authServise';
+import {
+  ISignInValues,
+  ISignUpValues,
+  TAuthAction,
+  TAuthContextType,
+  TAuthState,
+} from '@/types/authTypes';
+import { useRouter } from 'next/router';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  ReactNode,
+} from 'react';
 import toast from 'react-hot-toast';
+import { AxiosError } from 'axios'; // Import AxiosError
 
-const AuthContext = createContext();
+const AuthContext = createContext<TAuthContextType>({} as TAuthContextType);
 
-const initialState = {
+const initialState: TAuthState = {
   user: null,
   isAuthenticated: false,
   error: null,
   isLoading: true,
 };
 
-function authReducer(state, action) {
+function authReducer(state: TAuthState, action: TAuthAction): TAuthState {
   switch (action.type) {
     case 'loading':
       return {
@@ -28,30 +47,29 @@ function authReducer(state, action) {
         error: action.payload,
       };
     case 'signin':
-      return {
-        user: action.payload,
-        isAuthenticated: true,
-      };
     case 'signup':
-      return {
-        user: action.payload,
-        isAuthenticated: true,
-      };
     case 'user/loaded':
       return {
+        ...state,
         user: action.payload,
         isAuthenticated: true,
+        isLoading: false,
+        error: null,
       };
     case 'logout':
       return {
+        ...state,
         user: null,
         isAuthenticated: false,
+        isLoading: false,
+        error: null,
       };
     default:
       throw new Error('Unknown action!');
   }
 }
-export default function AuthProvider({ children }) {
+
+export default function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   const [{ user, isAuthenticated, isLoading }, dispatch] = useReducer(
@@ -59,7 +77,7 @@ export default function AuthProvider({ children }) {
     initialState
   );
 
-  async function signin(values) {
+  async function signin(values: ISignInValues) {
     dispatch({ type: 'loading' });
     try {
       const {
@@ -69,12 +87,15 @@ export default function AuthProvider({ children }) {
       toast.success(message);
       router.push('/profile');
     } catch (err) {
-      const error = err?.response?.data?.message;
+      const error =
+        (err as AxiosError<{ message: string }>)?.response?.data?.message ||
+        'An error occurred during sign-in.';
       dispatch({ type: 'rejected', payload: error });
       toast.error(error);
     }
   }
-  async function signup(values) {
+
+  async function signup(values: ISignUpValues) {
     dispatch({ type: 'loading' });
     try {
       const {
@@ -84,7 +105,9 @@ export default function AuthProvider({ children }) {
       toast.success(message);
       router.push('/profile');
     } catch (err) {
-      const error = err?.response?.data?.message;
+      const error =
+        (err as AxiosError<{ message: string }>)?.response?.data?.message ||
+        'An error occurred during sign-up.';
       dispatch({ type: 'rejected', payload: error });
       toast.error(error);
     }
@@ -92,33 +115,36 @@ export default function AuthProvider({ children }) {
 
   async function getUser() {
     dispatch({ type: 'loading' });
-
     try {
       const {
         data: { user },
       } = await getUserApi();
       dispatch({ type: 'user/loaded', payload: user });
     } catch (err) {
-      const error = err?.response?.data?.message;
+      const error =
+        (err as AxiosError<{ message: string }>)?.response?.data?.message ||
+        'Failed to fetch user data.';
       dispatch({ type: 'rejected', payload: error });
-      toast.error(error);
     }
   }
+
   async function logout() {
     try {
       await logoutApi();
-      router.push('/');
       dispatch({ type: 'logout' });
-    } catch (error) {
+      router.push('/');
+    } catch (err) {
+      const error =
+        (err as AxiosError<{ message: string }>)?.response?.data?.message ||
+        'Failed to logout.';
       toast.error(error);
     }
   }
+
   useEffect(() => {
-    async function fetchData() {
-      await getUser();
-    }
-    fetchData();
+    getUser();
   }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -136,8 +162,10 @@ export default function AuthProvider({ children }) {
   );
 }
 
-export function useAuth() {
+export function useAuth(): TAuthContextType {
   const context = useContext(AuthContext);
-  if (context === undefined) throw new Error('not found Auth context');
-  return useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 }

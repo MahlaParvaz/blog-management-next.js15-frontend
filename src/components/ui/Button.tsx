@@ -5,7 +5,7 @@ const btnType: Record<ButtonVariant, string> = {
   secondary: 'btn--secondary',
   outline: 'btn--outline',
   danger: 'btn--danger',
-  red: ''
+  red: '',
 };
 
 function Button({

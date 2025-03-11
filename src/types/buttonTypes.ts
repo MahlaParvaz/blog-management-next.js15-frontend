@@ -1,18 +1,24 @@
-import { btnType } from "@/components/ui/ButtonIcon";
+import { btnType } from '@/components/ui/ButtonIcon';
+import { ButtonHTMLAttributes } from 'react';
 
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
   | 'outline'
-  | 'red'
-  | 'danger';
+  | 'danger'
+  | 'red';
 
-export interface IButtonProps {
-  children: React.ReactNode;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
   className?: string;
-  variant: ButtonVariant;
 }
+
+// export interface IButtonProps {
+//   children: React.ReactNode;
+//   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+//   className?: string;
+//   variant: ButtonVariant;
+// }
 
 export interface IButtonIconProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
